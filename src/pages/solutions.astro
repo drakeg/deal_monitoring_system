@@ -1,0 +1,20 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DealGrid from '../components/DealGrid.astro';
+import Disclosure from '../components/Disclosure.astro';
+import deals from '../data/deals.json';
+import { brands } from '../data/brands';
+const brand = brands.solutions;
+const brandDeals = deals.filter((deal) => deal.status === 'approved' && deal.brand.includes('solutions')).sort((a, b) => b.dealScore - a.dealScore);
+---
+<BaseLayout title={`${brand.name} Deals`} description={brand.tagline}>
+  <section class="container hero">
+    <p class="eyebrow">{brand.name}</p>
+    <h1>Tech, office, creator workflow, and dev gear deals.</h1>
+    <p class="lead">{brand.tagline}</p>
+  </section>
+  <section class="container section">
+    <DealGrid deals={brandDeals} />
+  </section>
+  <Disclosure />
+</BaseLayout>

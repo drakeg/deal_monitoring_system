@@ -1,0 +1,26 @@
+{
+  "name": "mad-mallard-deals",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "lint:data": "node scripts/validate-deals.mjs"
+  },
+  "dependencies": {
+    "@astrojs/check": "latest",
+    "astro": "latest",
+    "typescript": "latest"
+  },
+  "devDependencies": {
+    "prettier": "latest",
+    "prettier-plugin-astro": "latest"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

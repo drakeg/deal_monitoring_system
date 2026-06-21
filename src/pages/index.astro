@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DealGrid from '../components/DealGrid.astro';
+import Disclosure from '../components/Disclosure.astro';
+import deals from '../data/deals.json';
+import { brands } from '../data/brands';
+
+const featuredDeals = deals.filter((deal) => deal.status === 'approved' && deal.featured).sort((a, b) => b.dealScore - a.dealScore);
+---
+<BaseLayout>
+  <section class="container hero">
+    <p class="eyebrow">Prime Day-ready deal hub</p>
+    <h1>Curated deals across the Mad Mallard brands.</h1>
+    <p class="lead">Browse useful deals for RV travel, personal training, tech, creator gear, and home office upgrades. Built to support affiliate content without turning into a junk-deal feed.</p>
+  </section>
+
+  <section class="container section">
+    <div class="grid">
+      {Object.values(brands).map((brand) => (
+        <a class="card brand-card" href={brand.path}>
+          <div>
+            <p class="eyebrow">Brand</p>
+            <h2>{brand.name}</h2>
+          </div>
+          <p>{brand.tagline}</p>
+        </a>
+      ))}
+    </div>
+  </section>
+
+  <section class="container section">
+    <h2>Featured deals</h2>
+    <DealGrid deals={featuredDeals} />
+  </section>
+  <Disclosure />
+</BaseLayout>

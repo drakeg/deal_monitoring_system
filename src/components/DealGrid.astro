@@ -1,0 +1,7 @@
+---
+import DealCard from './DealCard.astro';
+const { deals } = Astro.props;
+---
+<div class="deal-grid">
+  {deals.map((deal) => <DealCard deal={deal} />)}
+</div>

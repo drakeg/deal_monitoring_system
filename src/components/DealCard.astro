@@ -1,0 +1,19 @@
+---
+const { deal } = Astro.props;
+---
+<article class="card deal-card">
+  <a href={`/deals/${deal.id}`} aria-label={`View ${deal.title}`}>
+    <img src={deal.imageUrl} alt="" loading="lazy" />
+  </a>
+  <div class="deal-body">
+    <p class="eyebrow">{deal.category}</p>
+    <h3><a href={`/deals/${deal.id}`}>{deal.title}</a></h3>
+    <p class="muted">{deal.whyItMatters}</p>
+    <div class="badges">
+      <span class="badge score">Score {deal.dealScore}</span>
+      <span class="badge">{deal.price}</span>
+      {deal.discount && <span class="badge">{deal.discount} off</span>}
+    </div>
+    <a class="button" href={deal.affiliateUrl} target="_blank" rel="sponsored noopener">Check deal</a>
+  </div>
+</article>

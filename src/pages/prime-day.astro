@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DealGrid from '../components/DealGrid.astro';
+import Disclosure from '../components/Disclosure.astro';
+import deals from '../data/deals.json';
+const primeDeals = deals.filter((deal) => deal.status === 'approved').sort((a, b) => b.dealScore - a.dealScore);
+---
+<BaseLayout title="Prime Day Deals | Mad Mallard Deals">
+  <section class="container hero">
+    <p class="eyebrow">Prime Day watchlist</p>
+    <h1>Deals worth checking before they disappear.</h1>
+    <p class="lead">This page is designed for Prime Day and similar deal events. Update prices, scores, and affiliate links in the data file as deals are verified.</p>
+  </section>
+  <section class="container section">
+    <DealGrid deals={primeDeals} />
+  </section>
+  <Disclosure />
+</BaseLayout>

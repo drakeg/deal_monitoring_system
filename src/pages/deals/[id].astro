@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Disclosure from '../../components/Disclosure.astro';
+import deals from '../../data/deals.json';
+
+export function getStaticPaths() {
+  return deals.map((deal) => ({ params: { id: deal.id }, props: { deal } }));
+}
+
+const { deal } = Astro.props;
+---
+<BaseLayout title={`${deal.title} | Mad Mallard Deals`} description={deal.whyItMatters}>
+  <section class="container hero detail">
+    <img src={deal.imageUrl} alt="" />
+    <div>
+      <p class="eyebrow">{deal.category}</p>
+      <h1>{deal.title}</h1>
+      <p class="lead">{deal.whyItMatters}</p>
+      <div class="badges">
+        <span class="badge score">Deal score {deal.dealScore}</span>
+        <span class="badge">{deal.price}</span>
+        {deal.discount && <span class="badge">{deal.discount} off</span>}
+        <span class="badge">Last checked {deal.lastChecked}</span>
+      </div>
+      <a class="button" href={deal.affiliateUrl} target="_blank" rel="sponsored noopener">Check deal on {deal.merchant}</a>
+      <a class="button secondary" href="/prime-day">Back to deals</a>
+    </div>
+  </section>
+  <Disclosure />
+</BaseLayout>
