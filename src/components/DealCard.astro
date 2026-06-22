@@ -1,4 +1,10 @@
 ---
+import type { Deal } from '../types/deal';
+
+interface Props {
+  deal: Deal;
+}
+
 const { deal } = Astro.props;
 ---
 <article class="card deal-card">

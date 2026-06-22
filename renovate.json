@@ -1,0 +1,61 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":dependencyDashboard",
+    ":semanticCommits",
+    ":semanticCommitTypeAll(chore)"
+  ],
+  "timezone": "America/New_York",
+  "labels": ["dependencies"],
+  "prConcurrentLimit": 5,
+  "prHourlyLimit": 2,
+  "rebaseWhen": "behind-base-branch",
+  "rangeStrategy": "bump",
+  "packageRules": [
+    {
+      "description": "Automerge safe npm patch/minor/dev dependency updates",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "description": "Do not automerge major npm updates",
+      "matchManagers": ["npm"],
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Do not automerge ffmpeg packages",
+      "matchPackageNames": ["@ffmpeg/ffmpeg", "@ffmpeg/core", "@ffmpeg/util"],
+      "automerge": false,
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Do not automerge Next.js/React major framework packages",
+      "matchPackageNames": ["next", "react", "react-dom", "eslint-config-next"],
+      "matchUpdateTypes": ["major"],
+      "automerge": false,
+      "dependencyDashboardApproval": true
+    },
+    {
+      "description": "Automerge GitHub Actions updates",
+      "matchManagers": ["github-actions"],
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    },
+    {
+      "description": "Automerge Terraform provider patch/minor updates",
+      "matchManagers": ["terraform"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    }
+  ]
+}
