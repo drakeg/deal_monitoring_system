@@ -1,0 +1,46 @@
+[
+  {
+    "id": "usb-c-docking-station",
+    "category": "Office Tech",
+    "title": "USB-C Laptop Docking Station",
+    "merchant": "Amazon",
+    "asin": "REPLACE_ASIN",
+    "price": "Check price",
+    "regularPrice": "",
+    "discount": "",
+    "affiliateUrl": "https://www.amazon.com/?tag=yourtag-20",
+    "imageUrl": "/placeholder.svg",
+    "whyItMatters": "Useful for remote work, consulting setups, and home office upgrades.",
+    "dealScore": 84,
+    "status": "approved",
+    "featured": true,
+    "tags": [
+      "tech",
+      "office",
+      "remote work"
+    ],
+    "lastChecked": "2026-06-20"
+  },
+  {
+    "id": "creator-wireless-mic",
+    "category": "Creator Gear",
+    "title": "Wireless Lavalier Microphone System",
+    "merchant": "Amazon",
+    "asin": "REPLACE_ASIN",
+    "price": "Check price",
+    "regularPrice": "",
+    "discount": "",
+    "affiliateUrl": "https://www.amazon.com/?tag=yourtag-20",
+    "imageUrl": "/placeholder.svg",
+    "whyItMatters": "A strong pick for YouTube, TikTok, interviews, and mobile content creation.",
+    "dealScore": 90,
+    "status": "approved",
+    "featured": true,
+    "tags": [
+      "creator",
+      "youtube",
+      "audio"
+    ],
+    "lastChecked": "2026-06-20"
+  }
+]

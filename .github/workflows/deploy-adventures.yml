@@ -1,0 +1,31 @@
+name: Deploy Adventures
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'sites/adventures/**'
+      - '.github/workflows/deploy-adventures.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build:adventures
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-east-1
+      - run: |
+          aws s3 sync sites/adventures/dist s3://${{ secrets.ADVENTURES_SITE_BUCKET }} --delete
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.ADVENTURES_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'

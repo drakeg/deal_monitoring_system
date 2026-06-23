@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Disclosure from '../../components/Disclosure.astro';
+import dealsData from '../../data/deals.json';
+import type { Deal } from '../../types/deal';
+
+const deals = dealsData as Deal[];
+
+export function getStaticPaths() {
+  return deals.map((deal) => ({ params: { id: deal.id }, props: { deal } }));
+}
+
+interface Props { deal: Deal }
+const { deal } = Astro.props;
+---
+<BaseLayout title={`${deal.title} | Deal`}>
+  <section class="hero">
+    <div class="container detail">
+      <div>
+        <p class="eyebrow">{deal.category}</p>
+        <h1>{deal.title}</h1>
+        <p class="lede">{deal.whyItMatters}</p>
+        <div class="badges">
+          <span class="badge score">Score {deal.dealScore}</span>
+          <span class="badge">{deal.price}</span>
+          {deal.discount && <span class="badge">{deal.discount} off</span>}
+        </div>
+        <div class="actions">
+          <a class="button" href={deal.affiliateUrl} target="_blank" rel="sponsored noopener">Check deal</a>
+          <a class="button secondary" href="/">Back to deals</a>
+        </div>
+      </div>
+      <img src={deal.imageUrl} alt="" />
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <Disclosure />
+      <p class="muted">Merchant: {deal.merchant}{deal.asin ? ` · ASIN: ${deal.asin}` : ''}{deal.lastChecked ? ` · Last checked: ${deal.lastChecked}` : ''}</p>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DealGrid from '../components/DealGrid.astro';
+import Disclosure from '../components/Disclosure.astro';
+import dealsData from '../data/deals.json';
+import { siteConfig } from '../config';
+import type { Deal } from '../types/deal';
+
+const deals = dealsData as Deal[];
+const featuredDeals = deals.filter((deal) => deal.status === 'approved' && deal.featured);
+const allDeals = deals.filter((deal) => deal.status === 'approved');
+---
+<BaseLayout>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">{siteConfig.short}</p>
+      <h1>{siteConfig.tagline}</h1>
+      <p class="lede">Curated picks worth checking before you buy. This site is intentionally separate from the other Mad Mallard brands.</p>
+      <div class="actions">
+        <a class="button" href="/prime-day">View Prime Day Picks</a>
+        <a class="button secondary" href="#all-deals">Browse Deals</a>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <Disclosure />
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <h2>Featured Deals</h2>
+      <DealGrid deals={featuredDeals.length ? featuredDeals : allDeals} />
+    </div>
+  </section>
+  <section class="section" id="all-deals">
+    <div class="container">
+      <h2>All Deals</h2>
+      <DealGrid deals={allDeals} />
+    </div>
+  </section>
+</BaseLayout>

@@ -1,20 +1,25 @@
 {
-  "name": "mad-mallard-deals",
-  "version": "0.1.0",
+  "name": "deal-monitoring-system",
+  "version": "0.2.0",
   "private": true,
   "type": "module",
+  "workspaces": [
+    "sites/*"
+  ],
   "scripts": {
-    "dev": "astro dev",
-    "build": "astro check && astro build",
-    "preview": "astro preview",
-    "check": "astro check",
-    "format": "prettier --write .",
-    "lint:data": "node scripts/validate-deals.mjs"
-  },
-  "dependencies": {
-    "@astrojs/check": "latest",
-    "astro": "latest",
-    "typescript": "latest"
+    "dev:adventures": "npm --workspace sites/adventures run dev",
+    "dev:personal-training": "npm --workspace sites/personal-training run dev",
+    "dev:solutions": "npm --workspace sites/solutions run dev",
+    "build": "npm run build:adventures && npm run build:personal-training && npm run build:solutions",
+    "build:adventures": "npm --workspace sites/adventures run build",
+    "build:personal-training": "npm --workspace sites/personal-training run build",
+    "build:solutions": "npm --workspace sites/solutions run build",
+    "check": "npm run check:adventures && npm run check:personal-training && npm run check:solutions",
+    "check:adventures": "npm --workspace sites/adventures run check",
+    "check:personal-training": "npm --workspace sites/personal-training run check",
+    "check:solutions": "npm --workspace sites/solutions run check",
+    "lint:data": "node scripts/validate-all-deals.mjs",
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "prettier": "latest",

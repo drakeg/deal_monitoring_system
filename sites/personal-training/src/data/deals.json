@@ -1,0 +1,46 @@
+[
+  {
+    "id": "adjustable-dumbbells",
+    "category": "Strength Training",
+    "title": "Adjustable Dumbbell Set",
+    "merchant": "Amazon",
+    "asin": "REPLACE_ASIN",
+    "price": "Check price",
+    "regularPrice": "",
+    "discount": "",
+    "affiliateUrl": "https://www.amazon.com/?tag=yourtag-20",
+    "imageUrl": "/placeholder.svg",
+    "whyItMatters": "Space-saving strength equipment for home workouts and small training spaces.",
+    "dealScore": 88,
+    "status": "approved",
+    "featured": true,
+    "tags": [
+      "fitness",
+      "strength",
+      "home gym"
+    ],
+    "lastChecked": "2026-06-20"
+  },
+  {
+    "id": "resistance-band-kit",
+    "category": "Portable Fitness",
+    "title": "Resistance Band Training Kit",
+    "merchant": "Amazon",
+    "asin": "REPLACE_ASIN",
+    "price": "Check price",
+    "regularPrice": "",
+    "discount": "",
+    "affiliateUrl": "https://www.amazon.com/?tag=yourtag-20",
+    "imageUrl": "/placeholder.svg",
+    "whyItMatters": "Portable workout gear that fits home, office, and RV travel routines.",
+    "dealScore": 82,
+    "status": "approved",
+    "featured": false,
+    "tags": [
+      "fitness",
+      "travel",
+      "bands"
+    ],
+    "lastChecked": "2026-06-20"
+  }
+]

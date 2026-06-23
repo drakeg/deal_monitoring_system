@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import DealGrid from '../components/DealGrid.astro';
+import Disclosure from '../components/Disclosure.astro';
+import dealsData from '../data/deals.json';
+import { siteConfig } from '../config';
+import type { Deal } from '../types/deal';
+
+const deals = dealsData as Deal[];
+const primeDeals = deals.filter((deal) => deal.status === 'approved').sort((a, b) => b.dealScore - a.dealScore);
+---
+<BaseLayout title={`Prime Day Deals | ${siteConfig.company}`}>
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Prime Day Watchlist</p>
+      <h1>{siteConfig.company} Prime Day Deals</h1>
+      <p class="lede">A curated watchlist for deals that fit this brand's audience.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <Disclosure />
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <DealGrid deals={primeDeals} />
+    </div>
+  </section>
+</BaseLayout>

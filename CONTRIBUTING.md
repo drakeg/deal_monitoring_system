@@ -1,39 +1,21 @@
 # Contributing
 
-This is a private project. Keep changes small and easy to review.
+## Add a deal
 
-## Branches
+Edit the matching site data file:
 
-Use feature branches:
-
-```bash
-git checkout -b feature/add-deal-cards
+```text
+sites/adventures/src/data/deals.json
+sites/personal-training/src/data/deals.json
+sites/solutions/src/data/deals.json
 ```
 
-## Before Committing
-
-Run:
+Run checks before committing:
 
 ```bash
 npm run lint:data
+npm run check
 npm run build
 ```
 
-## Deal Quality Rules
-
-Do not add every discount. Add deals that are useful, brand-relevant, and defensible.
-
-Preferred deal types:
-
-- Products personally owned or tested
-- Products researched for a current Mad Mallard project
-- High-confidence deals from reputable brands
-- Items with a clear content angle
-
-Avoid:
-
-- Random off-brand junk
-- Suspicious sellers
-- Medical claims
-- Overhyped supplement claims
-- Deals without a clear audience
+Do not commit `.terraform/`, Terraform state, `dist/`, `.astro/`, `node_modules/`, archives, or private `.tfvars` files.

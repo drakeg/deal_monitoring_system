@@ -1,0 +1,4 @@
+domain_name      = "deals.madmallardsolutions.com"
+hosted_zone_name = ""
+price_class      = "PriceClass_100"
+create_dns_record = false

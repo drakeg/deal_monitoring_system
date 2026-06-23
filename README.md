@@ -1,76 +1,60 @@
-# Mad Mallard Deals
+# Deal Monitoring System
 
-A static, low-cost deal hub for the Mad Mallard brands:
+Three separate static deal sites for the Mad Mallard companies.
 
-- **Mad Mallards Adventures** — RV, camping, towing, solar, creator gear
-- **Mad Mallard Personal Training** — fitness, recovery, home gym, meal prep
-- **Mad Mallard Solutions** — tech, home office, cloud/dev, creator workflow gear
+## Sites
 
-This MVP is intentionally static so it can be hosted cheaply on AWS using S3 + CloudFront.
+- `sites/adventures` — Mad Mallards Adventures deals
+- `sites/personal-training` — Mad Mallard Personal Training deals
+- `sites/solutions` — Mad Mallard Solutions deals
 
-## Tech Stack
+Each site has its own Astro app, deal data, branding, build output, and AWS deployment.
 
-- Astro static site
-- JSON deal data
-- S3/CloudFront-ready build output
-- GitHub Actions build check
-
-## Local Setup
+## Local setup
 
 ```bash
 npm install
-npm run dev
-```
-
-Open the local URL shown by Astro.
-
-## Build
-
-```bash
-npm run lint:data
+npm run check
 npm run build
 ```
 
-The static site is generated in `dist/`.
+Run one site locally:
 
-## Adding Deals
+```bash
+npm run dev:adventures
+npm run dev:personal-training
+npm run dev:solutions
+```
 
-Edit `src/data/deals.json`.
+## Deal data
 
-Required fields:
+Each site owns its data at:
 
-- `id` — URL-safe unique ID
-- `brand` — one or more of `adventures`, `personal-training`, `solutions`
-- `category`
-- `title`
-- `merchant`
-- `affiliateUrl`
-- `whyItMatters`
-- `dealScore` — 0-100
-- `status` — `draft`, `approved`, `posted`, or `expired`
+```text
+sites/<site>/src/data/deals.json
+```
 
-Only `approved` deals appear publicly.
+## Terraform
 
-## Affiliate Disclosure
+Each company has an independent Terraform environment:
 
-The site includes a disclosure component on all main deal pages. Keep disclosures visible and accurate anywhere affiliate links appear.
+```text
+infra/terraform/environments/adventures
+infra/terraform/environments/personal-training
+infra/terraform/environments/solutions
+```
 
-## AWS Hosting Plan
+Example:
 
-Initial low-cost hosting target:
+```bash
+cd infra/terraform/environments/adventures
+terraform init
+terraform plan
+terraform apply
+```
 
-1. Build static site with `npm run build`
-2. Upload `dist/` to S3
-3. Serve through CloudFront
-4. Use Route 53 for DNS if desired
+Then deploy that site's built files to the bucket shown in Terraform outputs.
 
-Avoid EC2, RDS, and always-on containers for the MVP.
+## Amazon affiliate compliance
 
-## Future Enhancements
-
-- Admin UI for approving deals
-- DynamoDB backend
-- Lambda/EventBridge scheduled price checks
-- n8n workflow for social post drafts
-- Amazon Creators API integration when eligible
-- Newsletter/email digest
+Keep affiliate disclosures visible on all deal pages. Replace placeholder links and ASINs before publishing.

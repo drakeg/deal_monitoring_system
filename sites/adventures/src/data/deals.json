@@ -1,0 +1,91 @@
+[
+  {
+    "id": "renogy-200ah-mini-lifepo4",
+    "category": "RV Solar & Power",
+    "title": "Renogy 12V 200Ah Mini LiFePO4 Battery",
+    "merchant": "Amazon",
+    "asin": "REPLACE_ASIN",
+    "price": "Check price",
+    "regularPrice": "",
+    "discount": "",
+    "affiliateUrl": "https://www.amazon.com/?tag=yourtag-20",
+    "imageUrl": "/placeholder.svg",
+    "whyItMatters": "A compact lithium battery option for RV power upgrades and boondocking setups.",
+    "dealScore": 92,
+    "status": "approved",
+    "featured": true,
+    "tags": [
+      "rv",
+      "solar",
+      "battery",
+      "boondocking"
+    ],
+    "lastChecked": "2026-06-20"
+  },
+  {
+    "id": "rv-surge-protector-50a",
+    "category": "RV Electrical",
+    "title": "50 Amp RV Surge Protector",
+    "merchant": "Amazon",
+    "asin": "REPLACE_ASIN",
+    "price": "Check price",
+    "regularPrice": "",
+    "discount": "",
+    "affiliateUrl": "https://www.amazon.com/?tag=yourtag-20",
+    "imageUrl": "/placeholder.svg",
+    "whyItMatters": "A practical safety item for campground power protection.",
+    "dealScore": 86,
+    "status": "approved",
+    "featured": true,
+    "tags": [
+      "rv",
+      "electrical",
+      "campground"
+    ],
+    "lastChecked": "2026-06-20"
+  },
+  {
+    "id": "resistance-band-kit",
+    "category": "Portable Fitness",
+    "title": "Resistance Band Training Kit",
+    "merchant": "Amazon",
+    "asin": "REPLACE_ASIN",
+    "price": "Check price",
+    "regularPrice": "",
+    "discount": "",
+    "affiliateUrl": "https://www.amazon.com/?tag=yourtag-20",
+    "imageUrl": "/placeholder.svg",
+    "whyItMatters": "Portable workout gear that fits home, office, and RV travel routines.",
+    "dealScore": 82,
+    "status": "approved",
+    "featured": false,
+    "tags": [
+      "fitness",
+      "travel",
+      "bands"
+    ],
+    "lastChecked": "2026-06-20"
+  },
+  {
+    "id": "creator-wireless-mic",
+    "category": "Creator Gear",
+    "title": "Wireless Lavalier Microphone System",
+    "merchant": "Amazon",
+    "asin": "REPLACE_ASIN",
+    "price": "Check price",
+    "regularPrice": "",
+    "discount": "",
+    "affiliateUrl": "https://www.amazon.com/?tag=yourtag-20",
+    "imageUrl": "/placeholder.svg",
+    "whyItMatters": "A strong pick for YouTube, TikTok, interviews, and mobile content creation.",
+    "dealScore": 90,
+    "status": "approved",
+    "featured": true,
+    "tags": [
+      "creator",
+      "youtube",
+      "audio"
+    ],
+    "lastChecked": "2026-06-20"
+  }
+]

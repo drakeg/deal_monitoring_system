@@ -1,0 +1,31 @@
+name: Deploy Solutions
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'sites/solutions/**'
+      - '.github/workflows/deploy-solutions.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run build:solutions
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: us-east-1
+      - run: |
+          aws s3 sync sites/solutions/dist s3://${{ secrets.SOLUTIONS_SITE_BUCKET }} --delete
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.SOLUTIONS_CLOUDFRONT_DISTRIBUTION_ID }} --paths '/*'
