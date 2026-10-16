@@ -26,6 +26,6 @@
     "prettier-plugin-astro": "latest"
   },
   "engines": {
-    "node": ">=20.0.0"
+    "node": ">=20.20.2"
   }
 }
