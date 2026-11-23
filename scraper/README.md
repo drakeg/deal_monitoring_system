@@ -1,4 +1,4 @@
-# Scrapling deal ingestion (Sprint 1)
+# Scrapling deal ingestion
 
 This is a **candidate collector**, not an automated publisher. It reads retailer listing pages using [Scrapling](https://github.com/D4Vinci/Scrapling) and generates a separate JSON file containing candidate deals for editorial review. It never changes `sites/*/src/data/deals.json`, affiliate links, or existing approvals.
 
@@ -36,6 +36,16 @@ docker compose -f scraper/compose.yaml --profile scraper run --build --rm deal-c
 
 This does not make a deal live on any storefront. The image is not yet tested by CI, and live retailer scheduling remains planned work.
 
+## Historical price insights (read-only)
+
+After collecting multiple snapshots, inspect the lowest previously **observed** price for each candidate:
+
+```bash
+python -m scraper.insights --db ./scraper/data/prices.sqlite --output ./scraper/data/insights.json
+```
+
+The report marks a new observed low only after at least two distinct timestamped observations. It never treats a retailer's crossed-out regular price as proof of savings. `claimVerified` remains `false`: price-history comparisons alone cannot establish an independently verified promotional claim. Reports never publish or approve candidates.
+
 ## Live HTTP (opt-in, only authorized sources)
 
 ```bash
@@ -47,7 +57,7 @@ The config is a `{"sources": [...]}` object. Start from `examples/fixture-source
 
 The implementation checks robots.txt (denies if unreadable except a 404), blocks unauthorized hosts, credentials in URLs, non-HTTPS and private IP literals, disables redirects, and requires `--allow-live`. There are no stealth bypasses, proxy rotations, or CAPTCHA solving. Run a single source at a time with a reasonable external schedule. Do not configure sources contrary to site terms or access permissions. Prefer official merchant/affiliate APIs, especially for Amazon.
 
-**Current limitations:** HTTP-only (no JS browser yet), one listing page per source, no scheduler/database/price history, no automated publication, no DNS-level SSRF guarantee or advanced network isolation. Use network egress restrictions in production. A product's displayed crossed-out price is **not proof of a real discount**. Do not publish a savings claim without price history or independent verification.
+**Current limitations:** HTTP-only (no JS browser yet), one listing page per source, no scheduler or automated publication, no DNS-level SSRF guarantee or advanced network isolation. Use network egress restrictions in production. A product's displayed crossed-out price is **not proof of a real discount**. Do not publish a savings claim without price history or independent verification.
 
 Scrapling is a third-party BSD-3-Clause project; maintain attribution and license notices if redistributing its code.
 
