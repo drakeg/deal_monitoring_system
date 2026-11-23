@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/openjdk/jdk:21-ubuntu
+FROM mcr.microsoft.com/openjdk/jdk:25-ubuntu
 VOLUME /tmp
 ARG JAVA_OPTS
 ENV JAVA_OPTS=$JAVA_OPTS
