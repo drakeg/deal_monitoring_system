@@ -26,6 +26,10 @@ npm run dev:personal-training
 npm run dev:solutions
 ```
 
+## Automated ingestion (experimental)
+
+The Scrapling-based candidate collector is in [`scraper/`](scraper/README.md). It supports offline fixture testing and strictly opt-in, robots-aware retailer HTTP collection. It **does not** publish or overwrite approved deals. See [ingestion roadmap #38](https://github.com/drakeg/deal_monitoring_system/issues/38).
+
 ## Deal data
 
 Each site owns its data at:
