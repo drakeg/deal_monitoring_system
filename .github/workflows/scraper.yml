@@ -23,4 +23,6 @@ jobs:
       - name: Run parser and guardrail tests
         run: python -m unittest discover -s scraper/tests -v
       - name: Exercise CLI without network
-        run: python -m scraper.collector --config scraper/examples/fixture-source.json --output /tmp/deal-candidates.json
+        run: |
+          python -m scraper.collector --config scraper/examples/fixture-source.json --output /tmp/deal-candidates.json
+          python -m scraper.history --db /tmp/prices.sqlite import --input /tmp/deal-candidates.json
