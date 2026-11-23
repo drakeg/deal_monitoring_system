@@ -18,7 +18,7 @@ class CollectorTests(unittest.TestCase):
         self.fixture = (ROOT / "tests" / "fixtures" / "demo-store.html").read_text()
 
     def test_extract_only_valid_items(self):
-        candidates = extract(self.source, Selector(text=self.fixture))
+        candidates = extract(self.source, Selector(content=self.fixture))
         self.assertEqual(len(candidates), 2)
         self.assertEqual(candidates[0]["priceAmount"], "129.99")
         self.assertEqual(candidates[0]["regularPriceAmount"], "189.99")
