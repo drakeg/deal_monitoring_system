@@ -135,7 +135,7 @@ def fetch_source(source: dict, config_dir: Path, allow_live: bool) -> Selector:
         fixture = source.get("fixturePath")
         if not fixture:
             raise ValueError("Fixture mode requires fixturePath")
-        return Selector(text=(config_dir / fixture).read_text(encoding="utf-8"))
+        return Selector(content=(config_dir / fixture).read_text(encoding="utf-8"))
     if not allow_live:
         raise ValueError("Live crawling disabled; pass --allow-live explicitly")
     if not robots_allowed(source["listingUrl"]):
