@@ -39,3 +39,6 @@ terraform.rc
 
 # Archives / generated exports
 *.zip
+
+# Persistent local scraper data
+scraper/data/

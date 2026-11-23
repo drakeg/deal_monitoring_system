@@ -1,0 +1,11 @@
+# Safe offline one-shot test; no real retailer fetching.
+services:
+  deal-collector:
+    build:
+      context: ..
+      dockerfile: scraper/Dockerfile
+    volumes:
+      - ./data:/data
+    restart: "no"
+    network_mode: none
+    profiles: ["scraper"]

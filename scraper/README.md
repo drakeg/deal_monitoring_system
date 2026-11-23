@@ -14,6 +14,28 @@ python -m scraper.collector --config scraper/examples/fixture-source.json --outp
 
 Inspect `/tmp/deal-candidates.json`. The fixture contains two valid candidates and one invalid placeholder, which is omitted. The output is **not** a live price feed.
 
+## Keep price history and review candidates
+
+Candidate JSON remains separate from published deal data. Import it into persistent SQLite using:
+
+```bash
+python -m scraper.history --db ./scraper/data/prices.sqlite import --input /tmp/deal-candidates.json
+```
+
+Observations are idempotent for the same source-generated timestamp. Editorial decisions persist even when a candidate reappears. Approvals are explicit; to approve a known `candidateId` after independent verification:
+
+```bash
+python -m scraper.history --db ./scraper/data/prices.sqlite review --candidate-id REPLACE_ID --status approved
+```
+
+To run a **network-disabled fixture-only Docker Compose demo** and keep SQLite data in `scraper/data`:
+
+```bash
+docker compose -f scraper/compose.yaml --profile scraper run --build --rm deal-collector
+```
+
+This does not make a deal live on any storefront. The image is not yet tested by CI, and live retailer scheduling remains planned work.
+
 ## Live HTTP (opt-in, only authorized sources)
 
 ```bash
