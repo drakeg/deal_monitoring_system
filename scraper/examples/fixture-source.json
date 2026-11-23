@@ -1,0 +1,23 @@
+{
+  "sources": [
+    {
+      "id": "demo-outdoor-shop",
+      "site": "adventures",
+      "merchant": "Demo Outdoor Shop",
+      "mode": "fixture",
+      "listingUrl": "https://example.com/deals",
+      "allowedDomains": [
+        "example.com"
+      ],
+      "fixturePath": "../tests/fixtures/demo-store.html",
+      "currency": "USD",
+      "selectors": {
+        "item": ".product",
+        "title": ".name::text",
+        "price": ".current::text",
+        "regularPrice": ".regular::text",
+        "url": "a::attr(href)"
+      }
+    }
+  ]
+}
