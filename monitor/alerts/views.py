@@ -17,7 +17,9 @@ def dashboard(request):
         alert.owner = request.user
         alert.save()
         return redirect("/")
-    return render(request, "dashboard.html", {"form":form, "alerts":Alert.objects.filter(owner=request.user).order_by("-created_at")})
+    alerts = list(Alert.objects.filter(owner=request.user).order_by("-created_at"))
+    enabled_count = sum(alert.enabled for alert in alerts)
+    return render(request, "dashboard.html", {"form":form, "alerts":alerts, "enabled_count":enabled_count, "paused_count":len(alerts)-enabled_count})
 
 @login_required
 @require_POST
