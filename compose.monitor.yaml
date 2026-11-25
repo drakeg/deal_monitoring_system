@@ -1,0 +1,30 @@
+services:
+  web:
+    build: ./monitor
+    ports:
+      - "${MONITOR_PORT:-8098}:8000"
+    environment:
+      DJANGO_SECRET_KEY: "${DJANGO_SECRET_KEY:?Set DJANGO_SECRET_KEY}"
+      DJANGO_DEBUG: "1"
+      POSTGRES_HOST: db
+      POSTGRES_DB: monitor
+      POSTGRES_USER: monitor
+      POSTGRES_PASSWORD: "${MONITOR_DB_PASSWORD:?Set MONITOR_DB_PASSWORD}"
+    depends_on:
+      db:
+        condition: service_healthy
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: monitor
+      POSTGRES_USER: monitor
+      POSTGRES_PASSWORD: "${MONITOR_DB_PASSWORD:?Set MONITOR_DB_PASSWORD}"
+    volumes:
+      - monitor_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U monitor"]
+      interval: 5s
+      timeout: 5s
+      retries: 15
+volumes:
+  monitor_db:
