@@ -59,6 +59,24 @@ class HistoryTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             ingest(self.db, invalid)
 
+    def test_currency_change_rejected(self):
+        ingest(self.db, self.payload)
+        changed = copy.deepcopy(self.payload)
+        changed["candidates"][0]["currency"] = "EUR"
+        with self.assertRaises(ValueError):
+            ingest(self.db, changed)
+
+    def test_older_snapshot_preserves_latest_metadata(self):
+        newer = copy.deepcopy(self.payload)
+        newer["generatedAt"] = "2026-11-25T12:00:00+00:00"
+        older = copy.deepcopy(self.payload)
+        older["generatedAt"] = "2026-11-24T12:00:00-05:00"
+        older["candidates"][0]["title"] = "Old title"
+        ingest(self.db, newer)
+        ingest(self.db, older)
+        row = self.db.execute("SELECT title, first_seen, last_seen FROM candidates WHERE candidate_id=?", (newer["candidates"][0]["candidateId"],)).fetchone()
+        self.assertEqual(row, (newer["candidates"][0]["title"], "2026-11-24T17:00:00+00:00", "2026-11-25T12:00:00+00:00"))
+
     def test_manual_approval_requires_known_candidate(self):
         ingest(self.db, self.payload)
         with self.assertRaises(ValueError):
