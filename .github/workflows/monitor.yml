@@ -1,0 +1,19 @@
+name: Test unified monitor
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+jobs:
+  docker-test:
+    runs-on: ubuntu-latest
+    env:
+      DJANGO_SECRET_KEY: ci-only-not-production
+      MONITOR_DB_PASSWORD: ci-only
+    steps:
+      - uses: actions/checkout@v7
+      - run: docker compose -f compose.monitor.yaml up -d --build
+      - run: docker compose -f compose.monitor.yaml exec -T web python manage.py test
+      - if: always()
+        run: docker compose -f compose.monitor.yaml down -v
