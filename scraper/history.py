@@ -4,7 +4,7 @@ from __future__ import annotations
 import argparse
 import json
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timezone
 from decimal import Decimal, InvalidOperation
 from pathlib import Path
 
@@ -45,7 +45,7 @@ def _validate_timestamp(raw: str) -> str:
     parsed = datetime.fromisoformat(raw)
     if parsed.tzinfo is None:
         raise ValueError("generatedAt must contain a timezone")
-    return parsed.isoformat()
+    return parsed.astimezone(timezone.utc).isoformat()
 
 
 def _validate_candidate(row: dict) -> dict:
@@ -87,10 +87,20 @@ def ingest(db: sqlite3.Connection, payload: dict) -> tuple[int, int]:
                     currency, first_seen, last_seen) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
                 values,
             )
+            identity = db.execute(
+                "SELECT source_id, site, merchant, product_url, currency FROM candidates WHERE candidate_id = ?",
+                (row["candidateId"],),
+            ).fetchone()
+            if identity != (row["sourceId"], row["site"], row["merchant"], row["productUrl"], row["currency"]):
+                raise ValueError("Candidate identity or currency changed")
             db.execute(
                 """UPDATE candidates SET last_seen = ?, title = ?
-                   WHERE candidate_id = ?""",
-                (when, row["title"], row["candidateId"]),
+                   WHERE candidate_id = ? AND last_seen <= ?""",
+                (when, row["title"], row["candidateId"], when),
+            )
+            db.execute(
+                "UPDATE candidates SET first_seen = ? WHERE candidate_id = ? AND first_seen > ?",
+                (when, row["candidateId"], when),
             )
             cursor = db.execute(
                 """INSERT OR IGNORE INTO price_observations

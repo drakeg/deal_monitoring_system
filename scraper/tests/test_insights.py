@@ -3,6 +3,7 @@ import json
 import tempfile
 import unittest
 from pathlib import Path
+from datetime import datetime, timedelta
 
 from scraper.collector import run
 from scraper.history import ingest, open_database, review
@@ -30,7 +31,7 @@ class InsightsTests(unittest.TestCase):
     def test_new_observed_low_is_based_on_history_not_msrp(self):
         ingest(self.db, self.payload)
         later = copy.deepcopy(self.payload)
-        later["generatedAt"] = "2026-11-24T15:00:00+00:00"
+        later["generatedAt"] = (datetime.fromisoformat(self.payload["generatedAt"]) + timedelta(days=1)).isoformat()
         later["candidates"][0]["priceAmount"] = "119.99"
         later["candidates"][1]["priceAmount"] = "1099.00"
         ingest(self.db, later)
