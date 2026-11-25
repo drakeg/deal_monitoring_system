@@ -4,6 +4,7 @@ import sqlite3
 import tempfile
 import unittest
 from pathlib import Path
+from datetime import datetime, timedelta
 
 from scraper.collector import run
 from scraper.history import ingest, open_database, review
@@ -37,7 +38,7 @@ class HistoryTests(unittest.TestCase):
     def test_observes_changes_in_price_history(self):
         ingest(self.db, self.payload)
         later = copy.deepcopy(self.payload)
-        later["generatedAt"] = "2026-11-23T15:00:00+00:00"
+        later["generatedAt"] = (datetime.fromisoformat(self.payload["generatedAt"]) + timedelta(days=1)).isoformat()
         later["candidates"][0]["priceAmount"] = "119.99"
         self.assertEqual(ingest(self.db, later), (2, 2))
         cid = later["candidates"][0]["candidateId"]
