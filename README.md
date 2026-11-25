@@ -1,5 +1,8 @@
 # Deal Monitoring System
 
+[![License](https://img.shields.io/github/license/drakeg/deal_monitoring_system)](https://github.com/drakeg/deal_monitoring_system/blob/main/LICENSE)
+
+
 Three separate static deal sites for the Mad Mallard companies.
 
 ## Sites
