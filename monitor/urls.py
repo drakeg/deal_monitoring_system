@@ -8,3 +8,6 @@ urlpatterns += [path("campaigns/", campaigns, name="campaigns"), path("campaigns
 
 from alerts.deals import deals
 urlpatterns += [path("campaigns/<int:pk>/deals/", deals, name="deals")]
+
+from alerts.scans import scan
+urlpatterns += [path("campaigns/<int:pk>/scan/", scan, name="scan")]
