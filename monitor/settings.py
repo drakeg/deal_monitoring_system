@@ -17,3 +17,6 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/accounts/login/"
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
+
+WSGI_APPLICATION = 'wsgi.application'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
