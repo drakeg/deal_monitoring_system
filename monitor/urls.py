@@ -11,3 +11,6 @@ urlpatterns += [path("campaigns/<int:pk>/deals/", deals, name="deals")]
 
 from alerts.scans import scan
 urlpatterns += [path("campaigns/<int:pk>/scan/", scan, name="scan")]
+
+from alerts.category_import import category_import
+urlpatterns += [path("campaigns/<int:pk>/import/", category_import, name="category_import")]
