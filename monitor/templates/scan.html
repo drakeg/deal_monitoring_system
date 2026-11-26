@@ -1,0 +1,4 @@
+{% extends "workspace.html" %}{% block workspace %}
+<section class="hero"><div><div class="eyebrow">Scrapling test</div><h1>Offline scan results</h1><p>Demonstration HTML only. These are fictional prices, not retailer offers. Test results are not saved to your real deal feed.</p></div><a class="btn" href="{% url 'deals' campaign.pk %}">Back to deals</a></section>
+<section class="panel"><h2>Extracted products meeting {{ campaign.minimum_discount }}% threshold</h2>{% for deal in results %}<article class="alert"><h3>{{ deal.title }}</h3><p class="price">${{ deal.price }} · {{ deal.discount|floatformat:1 }}% off</p><p>Demo reference price: ${{ deal.reference_price }}</p></article>{% empty %}<p>No demo products meet this threshold.</p>{% endfor %}</section>
+{% endblock %}

@@ -7,3 +7,5 @@
 - P1: Scheduling, historical prices, notifications.
 - P1: Free hosting feasibility and production security.
 - P2: Cross-retailer matching, affiliate reports, optional AI.
+
+- P0: Connect approved retailer adapters to campaign scans, with provenance and persistent observations. Offline demo must remain separate from real deals.
