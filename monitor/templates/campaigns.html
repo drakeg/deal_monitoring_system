@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% block content %}
+<main class="main"><header class="top"><a href="/">Product watchlist</a><h1>Sale campaigns</h1></header>
+<section class="hero"><div><h2>Discover holiday deals</h2><p>Configure retailer and category interests. Automated collection is not connected yet.</p></div></section>
+<div class="workspace"><section class="panel"><h2>Your campaigns</h2>{% for campaign in campaigns %}<article class="alert"><h3>{{ campaign.name }}</h3><p>{{ campaign.retailer }} · {{ campaign.category }} · {{ campaign.event }}</p><p>{{ campaign.starts_on }} – {{ campaign.ends_on }} · {{ campaign.minimum_discount }}% minimum</p><form method="post" action="{% url 'toggle_campaign' campaign.pk %}">{% csrf_token %}<button class="btn secondary">{% if campaign.enabled %}Pause{% else %}Resume{% endif %}</button></form></article>{% empty %}<p>No campaigns yet.</p>{% endfor %}</section>
+<section class="panel"><h2>New campaign</h2><form class="form" method="post">{% csrf_token %}{{ form.as_p }}<button class="btn">Create campaign</button></form></section></div></main>{% endblock %}
