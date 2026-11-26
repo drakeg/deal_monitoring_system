@@ -14,7 +14,7 @@ services:
       db:
         condition: service_healthy
   db:
-    image: postgres:19
+    image: postgres:17
     environment:
       POSTGRES_DB: monitor
       POSTGRES_USER: monitor
