@@ -1,9 +1,9 @@
 # Deal Monitoring System
 
+[![Django monitor CI](https://github.com/drakeg/deal_monitoring_system/actions/workflows/monitor.yml/badge.svg)](https://github.com/drakeg/deal_monitoring_system/actions/workflows/monitor.yml) [![Scrapling CI](https://github.com/drakeg/deal_monitoring_system/actions/workflows/scraper.yml/badge.svg)](https://github.com/drakeg/deal_monitoring_system/actions/workflows/scraper.yml)
 [![License](https://img.shields.io/github/license/drakeg/deal_monitoring_system)](https://github.com/drakeg/deal_monitoring_system/blob/main/LICENSE)
 
-
-Three separate static deal sites for the Mad Mallard companies.
+Transitioning to one unified deal alert application. See [local Docker setup](monitor/README.md). The following Astro sites are legacy and retained during migration.
 
 ## Sites
 
