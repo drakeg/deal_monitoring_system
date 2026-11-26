@@ -21,3 +21,18 @@ class Campaign(models.Model):
     starts_on = models.DateField()
     ends_on = models.DateField()
     enabled = models.BooleanField(default=True)
+
+class Deal(models.Model):
+    campaign = models.ForeignKey(Campaign, on_delete=models.CASCADE)
+    title = models.CharField(max_length=300)
+    url = models.URLField(max_length=2000)
+    price = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(Decimal("0.01"))])
+    reference_price = models.DecimalField(max_digits=12, decimal_places=2, validators=[MinValueValidator(Decimal("0.01"))])
+    observed_at = models.DateTimeField()
+
+    class Meta:
+        constraints = [models.UniqueConstraint(fields=("campaign", "url"), name="unique_campaign_deal_url")]
+
+    @property
+    def discount(self):
+        return (self.reference_price - self.price) * 100 / self.reference_price

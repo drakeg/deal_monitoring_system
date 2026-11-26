@@ -5,3 +5,6 @@ urlpatterns = [path("", dashboard), path("alerts/<int:pk>/delete/", delete_alert
 
 from alerts.campaigns import campaigns, toggle_campaign
 urlpatterns += [path("campaigns/", campaigns, name="campaigns"), path("campaigns/<int:pk>/toggle/", toggle_campaign, name="toggle_campaign")]
+
+from alerts.deals import deals
+urlpatterns += [path("campaigns/<int:pk>/deals/", deals, name="deals")]
