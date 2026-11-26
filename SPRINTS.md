@@ -9,3 +9,5 @@
 Each sprint requires tests and local Compose smoke checks. Preserve database volumes. Free hosting first; no paid resources without approval.
 
 - Campaign deal feed implemented. Offline Scrapling UI scan submitted for CI; live source integration remains next.
+
+- Authorized category HTML export import: bounded parsing, owner isolation, deduplicated persistent deals; CI pending. Live retailer fetching remains outstanding.

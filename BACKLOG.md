@@ -9,3 +9,5 @@
 - P2: Cross-retailer matching, affiliate reports, optional AI.
 
 - P0: Connect approved retailer adapters to campaign scans, with provenance and persistent observations. Offline demo must remain separate from real deals.
+
+- P0: Add operator-approved live category source configuration and safe fetching; HTML export import is an interim offline path, not live discovery.

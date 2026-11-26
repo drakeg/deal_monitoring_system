@@ -1,0 +1,4 @@
+{% extends "workspace.html" %}{% block workspace %}
+<section class="hero"><div><div class="eyebrow">Category discovery</div><h1>Import retailer category</h1><p>Paste authorized HTML and CSS selectors. No network requests are made. Prices are supplied by the export, not independently verified. USD only.</p></div><a class="btn" href="{% url 'deals' campaign.pk %}">Back to deals</a></section>
+<section class="panel">{% if count != None %}<p role="status">Imported {{ count }} valid products. Campaign discounts are applied on the deal results page.</p>{% endif %}<form method="post" class="form">{% csrf_token %}{{ form.as_p }}<button class="btn">Import category</button></form><p>Example selectors: .product, h2::text, .price::text, .regular::text, a::attr(href). Use only exports you are permitted to process.</p></section>
+{% endblock %}
