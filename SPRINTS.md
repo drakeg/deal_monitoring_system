@@ -13,3 +13,5 @@ Each sprint requires tests and local Compose smoke checks. Preserve database vol
 - Authorized category HTML export import: bounded parsing, owner isolation, deduplicated persistent deals; CI pending. Live retailer fetching remains outstanding.
 
 - Live category collection: exact URL allowlist via APPROVED_CATEGORY_URLS (space-separated, default disabled), direct HTTPS without redirects, bounded HTML, existing campaign importer. CI and live authorization verification pending.
+
+- Compose configuration: pass the operator-approved category URL allowlist to the web service, disabled by default. Live retailer validation and scheduled collection remain pending.
