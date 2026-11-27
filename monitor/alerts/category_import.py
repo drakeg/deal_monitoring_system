@@ -8,16 +8,24 @@ from urllib.parse import urljoin, urlsplit
 from scrapling import Selector
 from .models import Campaign, Deal
 from .deals import DealForm
+from .live_fetch import fetch_category
 
 class CategoryImportForm(forms.Form):
     listing_url = forms.URLField(max_length=2000, assume_scheme="https")
-    html = forms.CharField(widget=forms.Textarea, max_length=500000)
+    html = forms.CharField(widget=forms.Textarea, max_length=500000, required=False)
+    live = forms.BooleanField(required=False, label="Fetch operator-approved live category URL")
     item_selector = forms.CharField(max_length=200)
     title_selector = forms.CharField(max_length=200)
     price_selector = forms.CharField(max_length=200)
     reference_selector = forms.CharField(max_length=200)
     url_selector = forms.CharField(max_length=200)
-    authorized = forms.BooleanField(label="I have permission to use this retailer category export")
+    authorized = forms.BooleanField(label="I have permission to collect and use this retailer category")
+
+    def clean(self):
+        data = super().clean()
+        if bool(data.get('html')) == bool(data.get('live')):
+            raise forms.ValidationError('Choose either an HTML export or live collection.')
+        return data
 
     def clean_listing_url(self):
         url = self.cleaned_data["listing_url"]
@@ -55,9 +63,12 @@ def category_import(request, pk):
     count = None
     if request.method == "POST" and form.is_valid():
         try:
-            rows = list(candidates(form.cleaned_data))
+            data = dict(form.cleaned_data)
+            if data['live']:
+                data['html'] = fetch_category(data['listing_url'])
+            rows = list(candidates(data))
         except Exception:
-            form.add_error(None, "Unable to parse category HTML or selectors.")
+            form.add_error(None, "Unable to retrieve or parse category HTML. Check approval, availability and selectors.")
         else:
             with transaction.atomic():
                 for row in rows:
