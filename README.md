@@ -65,3 +65,6 @@ Then deploy that site's built files to the bucket shown in Terraform outputs.
 ## Amazon affiliate compliance
 
 Keep affiliate disclosures visible on all deal pages. Replace placeholder links and ASINs before publishing.
+
+### Repeat category collection
+Successful authorized live imports save the campaign URL and selectors. Run `python manage.py collect_categories` from the monitor application environment to collect active campaigns once. The exact URL allowlist is checked again on every fetch. Run only one instance at a time, at a frequency permitted by the retailer. Automatic scheduling, source removal controls and live retailer validation remain pending.

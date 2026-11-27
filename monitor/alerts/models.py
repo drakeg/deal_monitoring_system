@@ -12,6 +12,7 @@ class Alert(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Campaign(models.Model):
+    category_source = models.JSONField(default=dict, blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
     retailer = models.CharField(max_length=100)
