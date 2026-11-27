@@ -13,3 +13,5 @@
 - P0: Add operator-approved live category source configuration and safe fetching; HTML export import is an interim offline path, not live discovery.
 
 - Live category collection: exact URL allowlist via APPROVED_CATEGORY_URLS (space-separated, default disabled), direct HTTPS without redirects, bounded HTML, existing campaign importer. CI and live authorization verification pending.
+
+- Compose configuration: pass the operator-approved category URL allowlist to the web service, disabled by default. Live retailer validation and scheduled collection remain pending.
