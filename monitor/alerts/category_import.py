@@ -59,7 +59,7 @@ def candidates(data):
 @login_required
 def category_import(request, pk):
     campaign = get_object_or_404(Campaign, pk=pk, owner=request.user)
-    form = CategoryImportForm(request.POST if request.method == "POST" else None)
+    form = CategoryImportForm(request.POST if request.method == "POST" else None, initial=campaign.category_source)
     count = None
     if request.method == "POST" and form.is_valid():
         try:
@@ -73,5 +73,8 @@ def category_import(request, pk):
             with transaction.atomic():
                 for row in rows:
                     Deal.objects.update_or_create(campaign=campaign, url=row["url"], defaults={**row, "observed_at": timezone.now()})
+                if data['live']:
+                    campaign.category_source = {key: data[key] for key in ('listing_url', 'item_selector', 'title_selector', 'price_selector', 'reference_selector', 'url_selector')}
+                    campaign.save(update_fields=['category_source'])
             count = len(rows)
     return render(request, "category_import.html", {"campaign": campaign, "form": form, "count": count})
