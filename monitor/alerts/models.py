@@ -12,6 +12,9 @@ class Alert(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
 class Campaign(models.Model):
+    last_scan_at = models.DateTimeField(null=True, blank=True)
+    last_scan_status = models.CharField(max_length=20, default="never")
+    last_scan_count = models.PositiveIntegerField(default=0)
     category_source = models.JSONField(default=dict, blank=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     name = models.CharField(max_length=200)
