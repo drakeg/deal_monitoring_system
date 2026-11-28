@@ -21,8 +21,10 @@ class Command(BaseCommand):
                 with transaction.atomic():
                     for row in rows:
                         Deal.objects.update_or_create(campaign=campaign, url=row["url"], defaults={**row, "observed_at": timezone.now()})
+                    Campaign.objects.filter(pk=campaign.pk).update(last_scan_at=timezone.now(), last_scan_status="success" if rows else "empty", last_scan_count=len(rows))
                 self.stdout.write(f"Campaign {campaign.pk}: {len(rows)} observations")
             except Exception:
+                Campaign.objects.filter(pk=campaign.pk).update(last_scan_at=timezone.now(), last_scan_status="failed", last_scan_count=0)
                 failed += 1
                 self.stderr.write(f"Campaign {campaign.pk}: collection failed")
         if failed:
