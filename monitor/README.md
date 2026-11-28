@@ -11,3 +11,6 @@ Current scope: create, list and delete multiple per-user USD alerts. No automati
 
 ## Authorized live category discovery
 Live retrieval is disabled by default. Set `APPROVED_CATEGORY_URLS` in the root `.env` to a space-separated list of exact HTTPS category URLs for which the operator has verified permission and applicable access policies. Do not use credentials, redirects, or blocked sources. Recreate only the web service with `docker compose -f compose.monitor.yaml up -d --build web`; retain the existing database password and volume. In a campaign, choose live collection, enter an approved URL and the retailer-specific CSS selectors, and confirm authorization. Check the imported deals against the source. Offline HTML import remains available. No scheduled collection yet.
+
+## Repeat collection status
+Run `docker compose -f compose.monitor.yaml exec -T web python manage.py collect_categories` for active saved sources. The deal page shows the last repeat scan time, success/empty/failure and product count. Empty scans may indicate changed selectors, not absence of deals. Scheduling remains opt-in and must respect retailer limits.
